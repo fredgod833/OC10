@@ -1,4 +1,4 @@
-name: SonarQube FrontEnd
+name: SonarQube
 on:
   push:
     branches:
@@ -6,8 +6,8 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  sonarcloud:
-    name: SonarCloud
+  frontend:
+    name: SonarCloud Frontend
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
