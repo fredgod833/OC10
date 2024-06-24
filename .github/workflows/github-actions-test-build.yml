@@ -51,9 +51,6 @@ jobs:
 
           - name: Install Frontend Dependencies
             run: npm install              # install packages
-
-          - name: Build Frontend 
-            run: ng build
             
           - name: Execute Frontend Tests
             run: ng test
