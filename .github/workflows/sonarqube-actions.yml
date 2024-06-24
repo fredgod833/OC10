@@ -7,6 +7,10 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
     backend:
+      defaults:
+        run:
+          working-directory: ${{ github.workspace }}/back
+  
       name: SonarQube Backend
       runs-on: ubuntu-latest
       steps:
@@ -38,6 +42,10 @@ jobs:
 
 
     frontend:
+      defaults:
+        run:
+          working-directory: ${{ github.workspace }}/front
+        
       name: SonarCloud Frontend
       runs-on: ubuntu-latest
       steps:
