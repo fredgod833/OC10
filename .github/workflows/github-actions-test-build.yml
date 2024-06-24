@@ -30,3 +30,9 @@ jobs:
 
       - name: Creation Backend Tests Report
         run: mvn jacoco:report
+
+      - name: Backend Code Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Jacoco Code Coverage
+          path: ./back/target/site/jacoco/
