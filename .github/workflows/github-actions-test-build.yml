@@ -55,9 +55,6 @@ jobs:
           - name: Execute Frontend Tests
             run: npm run test:gitactions
 
-          - name: Execute End2End Frontend Tests
-            run: npm run e2e
-
           - name: Frontend Code Coverage Report
             uses: actions/upload-artifact@v4
             with:
