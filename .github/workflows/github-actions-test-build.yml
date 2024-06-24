@@ -10,29 +10,59 @@ on:
         branches:
             - main
 jobs:
-  backend:
-    name: Build & Test
-    runs-on: ubuntu-latest
+    backend:
+        name: Build & Test Backend
+        runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ${{ github.workspace }}/back
+        defaults:
+          run:
+            working-directory: ${{ github.workspace }}/back
         
-    steps:
-      - name: Git Checkout Backend
-        uses: actions/checkout@v2     # checkout the repo
+        steps:
+          - name: Git Checkout Backend
+            uses: actions/checkout@v2     # checkout the repo
 
-      - name: Install Backend Dependencies
-        run: mvn clean install        # install packages
+          - name: Install Backend Dependencies
+            run: mvn clean install        # install packages
             
-      - name: Execute Backend Tests
-        run: mvn clean test
+          - name: Execute Backend Tests
+            run: mvn clean test
 
-      - name: Creation Backend Tests Report
-        run: mvn jacoco:report
+          - name: Creation Backend Tests Report
+            run: mvn jacoco:report
 
-      - name: Backend Code Coverage Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: Jacoco Code Coverage
-          path: ./back/target/site/jacoco/
+          - name: Backend Code Coverage Report
+            uses: actions/upload-artifact@v4
+            with:
+              name: Jacoco Code Coverage
+              path: ./back/target/site/jacoco/
+              
+    frontend:
+        name: Build & Test Frontend
+        runs-on: ubuntu-latest
+
+        defaults:
+          run:
+            working-directory: ${{ github.workspace }}/front
+        
+        steps:
+          - name: Git Checkout Front
+            uses: actions/checkout@v2     # checkout the repo
+
+          - name: Install Frontend Dependencies
+            run: npm install              # install packages
+
+          - name: Build Frontend 
+            run: ng build
+            
+          - name: Execute Frontend Tests
+            run: ng test
+
+          - name: Execute End2End Frontend Tests
+            run: ng e2e
+
+          - name: Frontend Code Coverage Report
+            uses: actions/upload-artifact@v4
+            with:
+              name: Jest Code Coverage
+              path: ./front/coverage/bobapp
