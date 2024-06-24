@@ -53,7 +53,7 @@ jobs:
             run: npm install              # install packages
             
           - name: Execute Frontend Tests
-            run: npm run test
+            run: ng test --browsers=ChromeHeadless --watch=false --code-coverage
 
           - name: Execute End2End Frontend Tests
             run: npm run e2e
