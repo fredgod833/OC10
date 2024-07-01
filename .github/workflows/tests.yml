@@ -132,7 +132,7 @@ jobs:
                     run: mvn -B clean verify
                     working-directory: back
 
-                  - name: SonarCloud Scan
+                  - name: SonarCloud Scan part
                     env:
                            GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
                            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
