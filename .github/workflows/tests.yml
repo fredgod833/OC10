@@ -61,7 +61,7 @@ jobs:
                   - name: SonarCloud Scan
                     uses: SonarSource/sonarcloud-github-action@master
                     env:
-                          GIT_TOKEN: ${{ secrets.GIT_TOKEN }} # Needed to get PR information, if any
+                          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # Needed to get PR information, if any
                           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                     with:
                           projectBaseDir: ./front
@@ -134,7 +134,7 @@ jobs:
 
                   - name: SonarCloud Scan
                     env:
-                          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+                          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
                           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
                     run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=bobappBack -Dsonar.projectName="BobApp Backend" -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml -Dsonar.tests=src/test/java -Dsonar.java.binaries=target/classes -Dsonar.language=java
