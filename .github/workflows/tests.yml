@@ -32,7 +32,7 @@ jobs:
                     working-directory: front
 
                   - name: Run tests
-                    run: npm run test  -- --browsers=ChromeHeadlessNoSandbox
+                    run: npm run test --browsers=ChromeHeadlessNoSandbox
                     working-directory: front
 
                   - name: Upload report
@@ -49,7 +49,7 @@ jobs:
 
                   - name: Commit report
                     run: |
-                          git add front/coverage/bobapp
+                          git add -f front/coverage/bobapp
                           git commit -m "Add Karma report"
 
                   - name: Push Karma report
