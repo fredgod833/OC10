@@ -64,7 +64,7 @@ jobs:
                           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # Needed to get PR information, if any
                           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                     with:
-                          projectBaseDir: ./front
+                          projectBaseDir: front
 
       java:
             name: Spring Boot
