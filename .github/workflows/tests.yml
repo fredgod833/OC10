@@ -106,7 +106,7 @@ jobs:
 
       - name: Commit Jacoco report
         run: |
-          git add back/target/site/jacoco
+          git add -f back/target/site/jacoco
           git commit -m "Add Jacoco report"
 
       - name: Push Jacoco report
