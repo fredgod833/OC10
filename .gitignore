@@ -1,4 +1,5 @@
 HELP.md
+.github\workflows\tests.yml
 target/
 back/target/*
 !back/target/site/jacoco
