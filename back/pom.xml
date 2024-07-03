@@ -15,6 +15,10 @@
 	<description>L'application de joke par excellence !</description>
 	<properties>
 		<java.version>11</java.version>
+		<sonar.projectKey>Projet10_OC_JF_Key</sonar.projectKey>
+        <sonar.projectName>Projet10_OC_JF_Name</sonar.projectName>
+        <sonar.host.url>${env.SONAR_HOST_URL}</sonar.host.url>
+        <sonar.login>${env.SONAR_TOKEN}</sonar.login>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -57,6 +61,11 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
+            </plugin>
 		</plugins>
 	</build>
 </project>
