@@ -15,9 +15,9 @@
 	<description>L'application de joke par excellence !</description>
 	<properties>
 		<java.version>11</java.version>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
 		<sonar.projectKey>Projet10_OC_JF_Key</sonar.projectKey>
         <sonar.projectName>Projet10_OC_JF_Name</sonar.projectName>
-        <sonar.host.url>${env.SONAR_HOST_URL}</sonar.host.url>
         <sonar.login>${env.SONAR_TOKEN}</sonar.login>
 	</properties>
 	<dependencies>
