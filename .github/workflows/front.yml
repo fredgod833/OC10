@@ -55,6 +55,8 @@ jobs:
                         env:
                               SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: true
                               SONARQUBE_WEB_JAVAOPTS: "-Xmx1g -Xms512m"
+                              SONARQUBE_CE_JAVAOPTS: "-Xmx2g -Xms1g"
+                              SONARQUBE_SEARCH_JAVAOPTS: "-Xmx2g -Xms1g"
             steps:
                   - name: Wait for SonarQube to be ready
                     run: |
