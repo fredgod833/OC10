@@ -6,6 +6,35 @@ on:
                   - main
 
 jobs:
+      back-tests:
+            runs-on: ubuntu-latest
+            defaults:
+              run:
+                working-directory: back
+            steps:
+              - name: Checkout code
+                uses: actions/checkout@v4
+
+              - name: Set up Java JDK
+                uses: actions/setup-java@v4
+                with:
+                  distribution: temurin
+                  java-version: 11
+              - name: Build project
+                run: mvn clean install
+
+              - name: Run tests
+                run: mvn verify -Dspring.profiles=test
+
+              - name: Generate JaCoCo reports
+                run: mvn test -Dspring.profiles=test
+
+              - name: Upload JaCoCo reports
+                uses: actions/upload-artifact@v4
+                with:
+                  name: jacoco-reports
+                  path: back/target/site/jacoco/*
+
       build:
             name: Build and analyze back
             runs-on: ubuntu-latest
