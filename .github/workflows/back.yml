@@ -86,6 +86,12 @@ jobs:
                     uses: sonarsource/sonarcloud-github-action@v2.3.0
                     env:
                         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                    with:
+                        projectBaseDir: .back/
+                        args: >
+                              -Dsonar.organization=julienfauja
+                              -Dsonar.projectKey=JulienFAUJA_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+                              -Dsonar.verbose=true
       docker:
             name: Docker back
             runs-on: ubuntu-latest
