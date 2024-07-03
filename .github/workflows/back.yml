@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build and analyze
+    name: Build and analyze back
     runs-on: ubuntu-latest
     
     steps:
@@ -37,7 +37,7 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Projet10_OC_JF_Key -Dsonar.projectName='Projet10_OC_JF_Name'
   docker:
-    name: Docker
+    name: Docker back
     runs-on: ubuntu-latest
     steps:
         - name: Set up QEMU
