@@ -60,13 +60,22 @@ jobs:
                               SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: true
 
             steps:
+                  - name: Wait for SonarQube to be ready
+                    run: |
+                        until curl -s http://localhost:9000/api/system/status | grep -q '"status":"UP"'; do
+                        echo "Waiting for SonarQube to be up..."
+                        sleep 10
+                        done
+
                   - name: Test SonarQube connection
                     run: curl -v ${{ secrets.SONAR_HOST_URL }}
 
-                  - uses: actions/checkout@v4
+                  - name: Check out code
+                    uses: actions/checkout@v4
                     with:
                           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-                  - uses: sonarsource/sonarqube-scan-action@master
+                  - name: SonarQube Scan
+                    uses: sonarsource/sonarqube-scan-action@master
                     env:
                           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
