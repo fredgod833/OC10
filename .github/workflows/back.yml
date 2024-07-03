@@ -9,45 +9,45 @@ on:
                   - main
             paths:
                   - 'back/**'
-            types: [ opened, synchronize, reopened ]
+            types: [opened, synchronize, reopened]
 
 jobs:
       back-tests:
             runs-on: ubuntu-latest
             defaults:
-              run:
-                working-directory: back
+                  run:
+                        working-directory: back
             steps:
-              - name: Checkout code
-                uses: actions/checkout@v4
+                  - name: Checkout code
+                    uses: actions/checkout@v4
 
-              - name: Set up Java JDK
-                uses: actions/setup-java@v4
-                with:
-                  distribution: temurin
-                  java-version: 11
-              - name: Build project
-                run: mvn clean install
+                  - name: Set up Java JDK
+                    uses: actions/setup-java@v4
+                    with:
+                          distribution: temurin
+                          java-version: 11
+                  - name: Build project
+                    run: mvn clean install
 
-              - name: Run tests
-                run: mvn verify -Dspring.profiles=test
+                  - name: Run tests
+                    run: mvn verify -Dspring.profiles=test
 
-              - name: Generate JaCoCo reports
-                run: mvn test -Dspring.profiles=test
+                  - name: Generate JaCoCo reports
+                    run: mvn test -Dspring.profiles=test
 
-              - name: Upload JaCoCo reports
-                uses: actions/upload-artifact@v4
-                with:
-                  name: jacoco-reports
-                  path: back/target/site/jacoco/*
+                  - name: Upload JaCoCo reports
+                    uses: actions/upload-artifact@v4
+                    with:
+                          name: jacoco-reports
+                          path: back/target/site/jacoco/*
 
       build:
             name: Build and analyze back
             runs-on: ubuntu-latest
             defaults:
-              run:
-                working-directory: back
-           
+                  run:
+                        working-directory: back
+
             steps:
                   - uses: actions/checkout@v4
                     with:
@@ -80,18 +80,18 @@ jobs:
             steps:
                   - uses: actions/checkout@v4
                     with:
-                        # Disabling shallow clone is recommended for improving relevancy of reporting
-                        fetch-depth: 0
+                          # Disabling shallow clone is recommended for improving relevancy of reporting
+                          fetch-depth: 0
                   - name: SonarCloud Scan
                     uses: sonarsource/sonarcloud-github-action@v2.3.0
                     env:
-                        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                     with:
-                        projectBaseDir: .back/
-                        args: >
-                              -Dsonar.organization=julienfauja
-                              -Dsonar.projectKey=JulienFAUJA_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-                              -Dsonar.verbose=true
+                          projectBaseDir: back
+                          args: >
+                                -Dsonar.organization=julienfauja
+                                -Dsonar.projectKey=JulienFAUJA_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+                                -Dsonar.verbose=true
       docker:
             name: Docker back
             runs-on: ubuntu-latest
