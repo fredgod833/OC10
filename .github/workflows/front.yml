@@ -48,6 +48,9 @@ jobs:
             runs-on: ubuntu-latest
 
             steps:
+                  - name: Test SonarQube connection
+                    run: curl -v ${{ secrets.SONAR_HOST_URL }}
+
                   - uses: actions/checkout@v4
                     with:
                           fetch-depth: 1 # Shallow clones should be disabled for a better relevancy of analysis
@@ -79,7 +82,7 @@ jobs:
                   - name: Build and push
                     uses: docker/build-push-action@v6
                     with:
-                          context: .
+                          context: front
                           file: front/Dockerfile
                           push: true
                           tags: jufau/bobapp:latest
