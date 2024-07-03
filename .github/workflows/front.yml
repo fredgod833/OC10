@@ -43,37 +43,22 @@ jobs:
                     with:
                           github_token: ${{ secrets.GIT_TOKEN }}
                           branch: ${{ github.ref }}
-      build:
-            name: Build and analyze front
+      analyze:
+            name: Analyze front
             runs-on: ubuntu-latest
-            
             steps:
-                  - name: Wait for SonarQube to be ready
-                    run: |
-                          until curl -s http://localhost:9000/api/system/status | grep -q '"status":"UP"'; do
-                                echo "Waiting for SonarQube to be up..."
-                                sleep 10
-                          done
-
-                  - name: Test SonarQube connection
-                    run: curl -v ${{ secrets.SONAR_HOST_URL }}
-
-                  - name: Check out code
-                    uses: actions/checkout@v4
+                  - uses: actions/checkout@v4
                     with:
-                          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-                  - name: SonarQube Scan
-                    uses: sonarsource/sonarqube-scan-action@master
+                        # Disabling shallow clone is recommended for improving relevancy of reporting
+                        fetch-depth: 0
+                  - name: SonarCloud Scan
+                    uses: sonarsource/sonarcloud-github-action@<action version> # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
                     env:
-                          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                          SONAR_HOST_URL: http://localhost:9000 #${{ secrets.SONAR_HOST_URL }}
-
-                    with:
-                          args: -Dsonar.projectBaseDir=front
+                        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       docker:
             name: Docker front
             runs-on: ubuntu-latest
-            needs: [ci, build]
+            needs: [ci]
             steps:
                   - name: Set up QEMU
                     uses: docker/setup-qemu-action@v3
