@@ -18,7 +18,9 @@
 		<sonar.host.url>http://localhost:9000</sonar.host.url>
 		<sonar.projectKey>Projet10_OC_JF_Key</sonar.projectKey>
         <sonar.projectName>Projet10_OC_JF_Name</sonar.projectName>
-        <sonar.login>${env.SONAR_TOKEN}</sonar.login>
+        <sonar.login>admin</sonar.login>
+		<sonar.password>admin</sonar.password>
+		<sonar.token>sqp_65881c40c89ebb0e98bf7255b33c476a2cc3b0b2</sonar.token>
 	</properties>
 	<dependencies>
 		<dependency>
