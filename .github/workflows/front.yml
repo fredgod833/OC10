@@ -82,6 +82,7 @@ jobs:
                     #   env:
                     #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                     with:
+                          args: -X
                           projectBaseDir: front
       docker:
             name: Docker front
