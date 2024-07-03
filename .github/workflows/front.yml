@@ -6,7 +6,7 @@ on:
             branches:
                   - main
             paths:
-                  - 'back/**'
+                  - 'front/**'
             types: [ opened, synchronize, reopened ]
 permissions:
       contents: write
@@ -59,6 +59,12 @@ jobs:
                     uses: sonarsource/sonarcloud-github-action@v2.3.0
                     env:
                         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                    with:
+                        projectBaseDir: .front/
+                        args: >
+                              -Dsonar.organization=julienfauja
+                              -Dsonar.projectKey=JulienFAUJA_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+                              -Dsonar.verbose=true
       docker:
             name: Docker front
             runs-on: ubuntu-latest
