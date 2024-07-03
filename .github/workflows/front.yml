@@ -3,7 +3,11 @@ on:
       push:
             branches: ['main']
       pull_request:
-            branches: ['main']
+            branches:
+                  - main
+            paths:
+                  - 'back/**'
+            types: [ opened, synchronize, reopened ]
 permissions:
       contents: write
 jobs:
