@@ -7,7 +7,7 @@ on:
 permissions:
       contents: write
 jobs:
-      ci:      
+      ci:
             name: CI
             runs-on: ubuntu-latest
             strategy:
@@ -22,8 +22,7 @@ jobs:
                     with:
                           node-version: 20
                           cache: 'npm'
-                          cache-dependency-path: package-lock.json
-                         
+                          cache-dependency-path: front/package-lock.json
 
                   - name: Install dependencies
                     run: npm ci
@@ -31,13 +30,13 @@ jobs:
 
                   - name: Run tests
                     run: npm run test:prod # --browsers=ChromeHeadlessNoSandbox
-                    working-directory: ./front
+                    working-directory: front
 
                   - name: Upload report
                     uses: actions/upload-artifact@v4
                     with:
                           name: karma-report
-                          path: ./front/coverage/bobapp
+                          path: front/coverage/bobapp
 
                   - name: Push Karma report
                     uses: ad-m/github-push-action@master
@@ -47,23 +46,23 @@ jobs:
       build:
             name: Build and analyze
             runs-on: ubuntu-latest
-            
+
             steps:
                   - uses: actions/checkout@v4
                     with:
-                        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+                          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
                   - uses: sonarsource/sonarqube-scan-action@master
                     env:
-                        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-                  # If you wish to fail your job when the Quality Gate is red, uncomment the
-                  # following lines. This would typically be used to fail a deployment.
-                  # - uses: sonarsource/sonarqube-quality-gate-action@master
-                  #   timeout-minutes: 5
-                  #   env:
-                  #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+                    # If you wish to fail your job when the Quality Gate is red, uncomment the
+                    # following lines. This would typically be used to fail a deployment.
+                    # - uses: sonarsource/sonarqube-quality-gate-action@master
+                    #   timeout-minutes: 5
+                    #   env:
+                    #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                     with:
-                          projectBaseDir: ./front
+                          projectBaseDir: front
       docker:
             name: Docker
             runs-on: ubuntu-latest
@@ -75,14 +74,12 @@ jobs:
                   - name: Login to Docker Hub
                     uses: docker/login-action@v3
                     with:
-                        username: ${{ secrets.DOCKERHUB_USERNAME }}
-                        password: ${{ secrets.DOCKERHUB_TOKEN }}
+                          username: ${{ secrets.DOCKERHUB_USERNAME }}
+                          password: ${{ secrets.DOCKERHUB_TOKEN }}
                   - name: Build and push
                     uses: docker/build-push-action@v6
                     with:
-                        context: .
-                        file: ./front/Dockerfile
-                        push: true
-                        tags: jufau/bobapp:latest
-            
-
+                          context: .
+                          file: front/Dockerfile
+                          push: true
+                          tags: jufau/bobapp:latest
