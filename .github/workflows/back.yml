@@ -87,7 +87,7 @@ jobs:
       docker:
             name: Docker back
             runs-on: ubuntu-latest
-            needs: [back-tests, build]
+            needs: [back-tests, build, sonarcloud]
             steps:
                   - name: Checkout code
                     uses: actions/checkout@v4
