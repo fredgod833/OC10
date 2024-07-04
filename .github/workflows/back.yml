@@ -68,20 +68,12 @@ jobs:
                           path: ~/.m2
                           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
                           restore-keys: ${{ runner.os }}-m2
+                  - name: Build and analyze
+                    env:
+                      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+                    run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
                   
-
-      sonarqube:
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v4
-          with:
-            # Disabling shallow clones is recommended for improving the relevancy of reporting
-            fetch-depth: 0
-        - name: SonarQube Scan
-          uses: sonarsource/sonarqube-scan-action@v2.3.0
-          env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-            SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       docker:
             name: Docker back
