@@ -110,6 +110,6 @@ jobs:
                     uses: docker/build-push-action@v6
                     with:
                           context: ./back
-                          file: back/Dockerfile
+                          file: ./back/Dockerfile
                           push: true
                           tags: jufau/bobapp:latest
