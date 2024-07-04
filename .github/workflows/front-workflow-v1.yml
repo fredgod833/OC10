@@ -1,0 +1,78 @@
+name: Front Bob Application  CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - feat/github-actions-configuration
+
+jobs:
+  build_Front:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Install dependencies
+        working-directory: ./front
+        run: npm ci
+
+      - name: Test code
+        working-directory: ./front
+        run: npm test
+
+      - name: Build
+        working-directory: ./front
+        run: npm run build --if-present
+
+      - name: Artefact Coverage Front
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage jest
+          path: ./front/coverage/bobapp/
+
+  sonar_quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: ./front
+          args: >
+            -Dsonar.organization=adrienpiombini
+            -Dsonar.projectKey=adrienpiombini_p10-front
+            -Dsonar.qualitygate.wait=true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
+
+  docker_actions:
+    needs: [build_Front, sonar_quality]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build image and push on Dockerhub
+        uses: docker/build-push-action@v5
+        with:
+          context: ./front
+          push: true
+          tags: adrienpiombini/p10_bob_application_frontend:latest
