@@ -72,7 +72,11 @@ jobs:
                     env:
                       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-                    run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=JulienFAUJA_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD -Dsonar.projectName='Projet10_OC_JF_Name'
+                    run: mvn clean verify sonar:sonar \
+                          -Dsonar.projectKey=JulienFAUJA_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD \
+                          -Dsonar.projectName='Projet10_OC_JF_Name' \
+                          -Dsonar.host.url=http://localhost:9000 \
+                          -Dsonar.token=sqp_880bc4f4fecdd68130a0dea9b974215dbdcee37b
                   
 
       docker:
