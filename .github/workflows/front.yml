@@ -35,11 +35,7 @@ jobs:
                     run: npm run test:prod # --browsers=ChromeHeadlessNoSandbox
                     working-directory: front
 
-                  - name: Upload report
-                    uses: actions/upload-artifact@v4
-                    with:
-                          name: karma-report
-                          path: front/coverage/bobapp
+                 
 
                   - name: Push Karma report
                     uses: ad-m/github-push-action@master
