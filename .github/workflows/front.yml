@@ -1,8 +1,7 @@
 name: Front
 on:
       push:
-            branches:
-                  - develop
+            branches: [main, develop]
             paths:
                   - 'front/**'
       pull_request:
@@ -50,7 +49,6 @@ jobs:
             steps:
                   - uses: actions/checkout@v4
                     with:
-                         
                           fetch-depth: 0
                   - name: SonarCloud Scan
                     uses: sonarsource/sonarcloud-github-action@v2.3.0

@@ -2,8 +2,7 @@ name: Back
 
 on:
       push:
-            branches:
-              - develop
+            branches: [main, develop]
             paths:
                   - 'back/**'
       pull_request:
