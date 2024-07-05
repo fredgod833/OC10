@@ -78,3 +78,4 @@ jobs:
                           file: ./front/Dockerfile
                           push: true
                           tags: jufau/bobapp:latest
+#
