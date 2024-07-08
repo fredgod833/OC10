@@ -1,0 +1,81 @@
+name: BACKEND Build, test & Sonar
+
+on:
+    # Trigger the workflow on push for the main branch
+    # and pull request
+    push:
+        branches:
+            - main
+    pull_request:
+        types: [opened, synchronize, reopened]
+        branches:
+            - main
+jobs:
+    backend:
+        name: Build & Test Backend
+        runs-on: ubuntu-latest
+
+        defaults:
+          run:
+            working-directory: ${{ github.workspace }}/back
+        
+        steps:
+          - name: Git Checkout Backend
+            uses: actions/checkout@v2     # checkout the repo
+
+          - name: Install Backend Dependencies
+            run: mvn clean install        # install packages
+            
+          - name: Execute Backend Tests
+            run: mvn clean test
+
+          - name: Creation Backend Tests Report
+            run: mvn jacoco:report
+
+          - name: Backend Code Coverage Report
+            uses: actions/upload-artifact@v4
+            with:
+              name: Jacoco Code Coverage
+              path: ./back/target/site/jacoco/
+    backend-sonar:
+        defaults:
+          run:
+            working-directory: ${{ github.workspace }}/back
+    
+        name: SonarQube Backend
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v3
+            with:
+              fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          - name: Set up JDK 17
+            uses: actions/setup-java@v3
+            with:
+              java-version: 17
+              distribution: 'zulu' # Alternative distribution options are available.
+  
+          - name: Install Backend Dependencies
+            run: mvn clean install        # install packages
+              
+          - name: Execute Backend Tests
+            run: mvn clean test
+            
+          - name: Cache SonarCloud packages
+            uses: actions/cache@v3
+            with:
+              path: ~/.sonar/cache
+              key: ${{ runner.os }}-sonar
+              restore-keys: ${{ runner.os }}-sonar
+          - name: Cache Maven packages
+            uses: actions/cache@v3
+            with:
+              path: ~/.m2
+              key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+              restore-keys: ${{ runner.os }}-m2
+          - name: Build and analyze
+            env:
+              TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}  # Needed to get PR information, if any
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Florilege37_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+  
+     
