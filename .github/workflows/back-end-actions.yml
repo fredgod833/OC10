@@ -1,4 +1,4 @@
-name: BACKEND Build, test & Sonar
+name: BACKEND Build & test THEN Sonar THEN Docker
 
 on:
     # Trigger the workflow on push for the main branch
@@ -81,6 +81,7 @@ jobs:
     
     docker-backend:
         needs: backend-sonar
+        name: Image Docker back-end
         runs-on: ubuntu-latest
         steps:
           - name: Checkout
