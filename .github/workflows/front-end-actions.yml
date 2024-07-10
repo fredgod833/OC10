@@ -3,15 +3,11 @@ name: FRONT-END Build & test THEN SonarQube THEN Docker
 on:
     push:
         branches:
-            - develop
-        paths: 
-            - '/front/**'
+            - main
     pull_request:
         types: [opened, synchronize, reopened]
         branches:
             - main
-        paths: 
-            - '/front/**'
 jobs:          
     frontend:
         name: Build & Test Frontend
@@ -44,22 +40,17 @@ jobs:
           working-directory: ${{ github.workspace }}/front
         
       name: Sonar Cloud Front-End Scan
-      runs-on: ubuntu-latest
+      runs-on: self-hosted
       steps:
         - uses: actions/checkout@v3
           with:
             fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
   
-        - name: Install Frontend Dependencies
-          run: npm install
+        - name: Install SonarQube Scanner
+          run: npm install -g sonarqube-scanner
   
-        - name: Execute Frontend Tests
-          run: npm run test:gitactions
-  
-        - name: SonarCloud Front-End Scan
-          uses: SonarSource/sonarcloud-github-action@master
-          with:
-            projectBaseDir: front # Sets the project to analyze
+        - name: Run SonarQube Scanner
+          run: sonar-scanner
           env:
             TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
