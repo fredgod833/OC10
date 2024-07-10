@@ -1,8 +1,6 @@
-name: FRONT-END Build & test & SonarQube
+name: FRONT-END Build & test THEN SonarQube THEN Docker
 
 on:
-    # Trigger the workflow on push for the main branch
-    # and pull request
     push:
         branches:
             - main
@@ -21,10 +19,10 @@ jobs:
         
         steps:
           - name: Git Checkout Front
-            uses: actions/checkout@v2     # checkout the repo
+            uses: actions/checkout@v2
 
           - name: Install Frontend Dependencies
-            run: npm install              # install packages
+            run: npm install
             
           - name: Execute Frontend Tests
             run: npm run test:gitactions
@@ -59,5 +57,30 @@ jobs:
           with:
             projectBaseDir: front # Sets the project to analyze
           env:
-            TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}  # Needed to get PR information, if any
+            TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            
+    docker-frontend:
+        needs: sonar-frontend
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+    
+          - name: Login to Docker Hub
+            uses: docker/login-action@v3
+            with:
+              username: ${{ secrets.DOCKERHUB_USERNAME }}
+              password: ${{ secrets.DOCKERHUB_TOKEN }}
+    
+          - name: Setting up Docker Buildx
+            uses: docker/setup-buildx-action@v3
+    
+          - name: Build and push
+            uses: docker/build-push-action@v5
+            with:
+              context: ./front
+              file: front/Dockerfile
+              push: true
+              tags: ${{ secrets.DOCKERHUB_USERNAME }}/bobapp_front:latest
+        
