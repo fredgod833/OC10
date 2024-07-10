@@ -48,7 +48,7 @@ jobs:
             working-directory: ${{ github.workspace }}/back
     
         name: SonarQube Backend
-        runs-on: ubuntu-latest
+        runs-on: self-hosted # Pour pointer sur le localhost de sonarQube
         steps:
           - uses: actions/checkout@v3
             with:
@@ -79,9 +79,9 @@ jobs:
               restore-keys: ${{ runner.os }}-m2
           - name: Build and analyze
             env:
-              TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}  # Needed to get PR information, if any
               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-            run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Florilege37_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
+              SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+            run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
     
     docker-backend:
         needs: backend-sonar
