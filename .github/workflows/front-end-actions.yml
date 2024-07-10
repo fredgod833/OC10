@@ -62,6 +62,7 @@ jobs:
             
     docker-frontend:
         needs: sonar-frontend
+        name: Image Docker Front-end
         runs-on: ubuntu-latest
         steps:
           - name: Checkout
