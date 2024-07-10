@@ -3,11 +3,15 @@ name: FRONT-END Build & test THEN SonarQube THEN Docker
 on:
     push:
         branches:
-            - main
+            - develop
+        paths: 
+            - '/front/**'
     pull_request:
         types: [opened, synchronize, reopened]
         branches:
             - main
+        paths: 
+            - '/front/**'
 jobs:          
     frontend:
         name: Build & Test Frontend
