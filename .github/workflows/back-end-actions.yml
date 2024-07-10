@@ -5,11 +5,15 @@ on:
     # and pull request
     push:
         branches:
-            - main
+            - develop
+        paths: 
+            - '/back/**'
     pull_request:
         types: [opened, synchronize, reopened]
         branches:
             - main
+        paths: 
+            - '/back/**'
 jobs:
     backend:
         name: Build & Test Backend
