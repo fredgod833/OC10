@@ -18,7 +18,7 @@
 		<sonar.organization>florilege37</sonar.organization>
 		<sonar.projectkey>TODOMETTRENOMKEYSONAR</sonar.projectkey>
 		<sonar.projectName>backend</sonar.projectName>
-	</properties>
+	</properties> 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
