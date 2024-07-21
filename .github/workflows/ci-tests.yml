@@ -1,4 +1,4 @@
-name: 'CI'
+name: 'CI-test'
 on:
   pull_request:
 jobs:
@@ -25,18 +25,7 @@ jobs:
       - name: Launch maven compile with tests and coverage
         run: |
           cd back
+          pwd
           mvn -B compile test
-          
-      - name: Upload back test results
-        uses: actions/upload-artifact@v4  # 
-          if: success() || failure()        # run this step even if previous step failed
-          with:
-            name: test-back-results
-            path: ./back/target/site/jacoco
 
-      - name: Upload front test results
-        uses: actions/upload-artifact@v4  # 
-          if: success() || failure()        # run this step even if previous step failed
-          with:
-            name: test-front-results
-            path: ./front/coverage/
+          
