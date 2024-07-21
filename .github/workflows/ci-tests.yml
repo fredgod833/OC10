@@ -27,7 +27,7 @@ jobs:
           cd back
           pwd
           mvn -B compile test
-          cd..
+          cd ..
 
       - name: Upload back test results
         uses: actions/upload-artifact@v4
