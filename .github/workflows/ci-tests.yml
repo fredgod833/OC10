@@ -1,6 +1,6 @@
 name: 'CI-test'
 on:
-  pull_request:
+  [push] #pull_request:
 jobs:
   build-test:
     runs-on: ubuntu-latest
