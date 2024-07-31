@@ -22,6 +22,13 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Launch maven compile with tests and coverage
+        run: |
+          cd back
+          pwd
+          mvn -B compile test
+          cd ..
+          
       - name: Report Java JUnit tests
         uses: dorny/test-reporter@v1
         if: always()
@@ -30,13 +37,6 @@ jobs:
           path: ./back/target/surefire-reports/*.xml
           reporter: java-junit
           fail-on-error: true
-
-      - name: Launch maven compile with tests and coverage
-        run: |
-          cd back
-          pwd
-          mvn -B compile test
-          cd ..
 
       - name: Upload back test results
         uses: actions/upload-artifact@v4
