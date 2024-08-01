@@ -8,6 +8,7 @@ dist/
 coverage/
 .scannerwork/*
 reports/*
+front/junit/*
 
 ### STS ###
 .apt_generated
