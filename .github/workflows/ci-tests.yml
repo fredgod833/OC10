@@ -29,23 +29,32 @@ jobs:
           mvn -B compile test
           cd ..
           
-      - name: Report Java JUnit tests
+      - name: Report Back JUnit tests
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Maven Tests
+          name: Back tests results
           path: ./back/target/surefire-reports/*.xml
           reporter: java-junit
           fail-on-error: true
 
-      - name: Upload back test results
+      - name: Report Front JUnit tests
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Front tests results
+          path: ./front/junit/junitReporter.xml
+          reporter: java-junit
+          fail-on-error: true
+
+      - name: Upload back coverage results
         uses: actions/upload-artifact@v4
         if: success() || failure() # run this step even if previous step failed
         with:
           name: test-back-results
           path: ./back/target/site/jacoco
 
-      - name: Upload back test results
+      - name: Upload front coverage results
         uses: actions/upload-artifact@v4
         if: success() || failure() # run this step even if previous step failed
         with:
