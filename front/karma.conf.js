@@ -43,7 +43,13 @@ module.exports = function (config) {
       properties: {}, // key value pair of properties to add to the <properties> section of the report
       xmlVersion: null // use '1' if reporting to be per SonarQube 6.2 XML format
     },
-    reporters: ['progress', 'kjhtml', 'junit'],
+    thresholdReporter: {
+      statements: 70,
+      branches: 70,
+      functions: 70,
+      lines: 70
+    },
+    reporters: ['progress', 'kjhtml', 'junit','threshold'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
