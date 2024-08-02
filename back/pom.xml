@@ -15,6 +15,13 @@
 	<description>L'application de joke par excellence !</description>
 	<properties>
 		<java.version>11</java.version>
+        <customized-name>bobapp-back</customized-name>
+        <sonar.projectName>bobapp-back</sonar.projectName>
+        <sonar.host.url>http://program-it.pro.dns-orange.fr:58796</sonar.host.url>
+        <sonar.login>squ_315ca287d4047a1cd076efc0c66faa75e229efee</sonar.login>
+        <sonar.projectKey>${project.groupId}:bobapp-back</sonar.projectKey>
+        <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+        <sonar.scm.disabled>true</sonar.scm.disabled>
 	</properties>
 	<dependencies>
 		<dependency>

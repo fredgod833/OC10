@@ -1,0 +1,31 @@
+name: 'CI-sonar'
+on:
+  [push] #pull_request:
+jobs:
+  build-sonar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: launch front tests with coverage
+        run: |
+            cd front
+            npm ci # install packages
+            npx sonarqube-scanner
+            cd ..
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Launch maven compile with tests and coverage
+        run: |
+          cd back
+          mvn -B clean package
+          mvn -B sonar:sonar
+          cd ..
+
+          
