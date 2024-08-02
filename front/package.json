@@ -40,7 +40,6 @@
     "karma-jasmine-html-reporter": "2.0.0",
     "karma-junit-reporter": "^2.0.1",
     "karma-sonarqube-reporter": "^1.4.0",
-    "karma-threshold-reporter": "^0.1.15",
     "sonarqube-scanner": "^4.0.1",
     "typescript": "4.8.2"
   }
