@@ -1,6 +1,8 @@
 name: 'CI-publish-dockerhub'
 on:
-  [push] #pull_request:
+  push:
+    branches:
+    - main
 jobs:
   publish-dockerhub:
     runs-on: ubuntu-latest
