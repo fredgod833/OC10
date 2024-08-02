@@ -1,0 +1,36 @@
+name: 'CI-publish-dockerhub'
+on:
+  [push] #pull_request:
+jobs:
+  publish-dockerhub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: make and publish front image
+        run: |
+            cd front
+            npm ci # install packages
+            docker build -t bobapp-front .
+            docker login -u fredgodard -p BobApp2024!
+            docker tag bobapp-front fredgodard/bobapp-front
+            docker push fredgodard/bobapp-front
+            cd ..
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: make and publish back image
+        run: |
+          cd back
+          docker build -t bobapp-back .
+          docker login -u fredgodard -p BobApp2024!
+          docker tag bobapp-back fredgodard/bobapp-back
+          docker push fredgodard/bobapp-back
+          cd ..
+
+          
