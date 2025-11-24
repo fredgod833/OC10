@@ -16,11 +16,11 @@
 	<properties>
 		<java.version>11</java.version>
         <customized-name>bobapp-back</customized-name>
-		<sonar.organization>fredgod833</sonar.organization>
-        <sonar.projectName>bobapp</sonar.projectName>
-		<sonar.projectKey>fredgod833_OC10</sonar.projectKey>
-		<sonar.moduleKey>fredgod833_OC10:bobapp-back</sonar.moduleKey>
 		<!--
+			<sonar.organization>fredgod833</sonar.organization>
+        	<sonar.projectName>bobapp</sonar.projectName>
+			<sonar.projectKey>fredgod833_OC10</sonar.projectKey>
+			<sonar.moduleKey>fredgod833_OC10:bobapp-back</sonar.moduleKey>		
 	        <sonar.host.url>http://program-it.pro.dns-orange.fr:58796</sonar.host.url>
 	        <sonar.login>squ_315ca287d4047a1cd076efc0c66faa75e229efee</sonar.login>
 	        <sonar.scm.disabled>true</sonar.scm.disabled>
