@@ -1,6 +1,12 @@
 name: 'CI-sonar'
 on:
-  [push] #pull_request:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
 jobs:
   build-sonar:
     runs-on: ubuntu-latest

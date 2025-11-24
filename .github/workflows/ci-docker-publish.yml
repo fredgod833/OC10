@@ -2,7 +2,7 @@ name: 'CI-publish-dockerhub'
 on:
   push:
     branches:
-    - main
+      - main
 jobs:
   publish-dockerhub:
     runs-on: ubuntu-latest

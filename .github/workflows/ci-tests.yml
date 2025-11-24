@@ -1,6 +1,12 @@
 name: 'CI-test'
 on:
-  [push] #pull_request:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
 jobs:
   build-test:
     runs-on: ubuntu-latest
