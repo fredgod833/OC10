@@ -38,6 +38,13 @@ jobs:
           reporter: java-junit
           fail-on-error: true
 
+      - name: Upload front coverage results
+        uses: actions/upload-artifact@v4
+        if: success() || failure() # run this step even if previous step failed
+        with:
+          name: front-tests-coverage
+          path: ./front/coverage/
+          
       - name: Report Front JUnit tests
         uses: dorny/test-reporter@v1
         if: always()
@@ -51,15 +58,10 @@ jobs:
         uses: actions/upload-artifact@v4
         if: success() || failure() # run this step even if previous step failed
         with:
-          name: test-back-results
+          name: back-tests-coverage
           path: ./back/target/site/jacoco
 
-      - name: Upload front coverage results
-        uses: actions/upload-artifact@v4
-        if: success() || failure() # run this step even if previous step failed
-        with:
-          name: test-front-results
-          path: ./front/coverage/
+      
 
       
 
