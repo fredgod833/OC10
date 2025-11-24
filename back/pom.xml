@@ -17,7 +17,7 @@
 		<java.version>11</java.version>
         <customized-name>bobapp-back</customized-name>
         <sonar.projectName>bobapp-back</sonar.projectName>
-		<sonar.projectKey>fredgod833_OC10:bobapp-back</sonar.projectKey>
+		<sonar.projectKey>fredgod833_OC10</sonar.projectKey>
 		<!--
 			<sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
 	        <sonar.host.url>http://program-it.pro.dns-orange.fr:58796</sonar.host.url>
