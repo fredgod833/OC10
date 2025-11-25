@@ -36,7 +36,7 @@ jobs:
           cd ..
           
       - name: Report Back JUnit tests
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v2
         if: always()
         with:
           name: Back tests results
@@ -52,7 +52,7 @@ jobs:
           path: ./front/coverage/
           
       - name: Report Front JUnit tests
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v2
         if: always()
         with:
           name: Front tests results
